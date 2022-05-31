@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>Django Ajax</title>
+</head>
+<body>
+        <h2>Create Form</h2>
+        <form id="post-form">
+            {% csrf_token %}
+            <p>Name:</p>
+            <input type="text" id="name" value="name"> <br>
+            <p>Email:</p>
+            <input type="text" id="email" value="email"><br>
+            <p>Bio:</p>
+            <input type="text" id="bio" value="bio"><br>
+            <input type="submit">
+  
+        </form>
+   
+<script type="text/javascript">
+    $(document).on('submit', '#post-form', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type:'POST',
+            url: 'create/',
+            data:{
+                name:$("#name").val(),
+                email:$("#email").val(),
+                bio:$("#bio").val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(){
+
+            }
+        })
+
+    })
+
+</script>
+</body>
+</html>
